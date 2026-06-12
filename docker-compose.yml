@@ -1,0 +1,42 @@
+# Local development stack — Postgres + app
+# Usage:  docker-compose up --build
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER:     postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB:       ziva
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL:      postgresql://postgres:postgres@db:5432/ziva
+      SECRET_KEY:        dev-secret-key-change-in-production
+      RESEND_API_KEY:    ""
+      FROM_EMAIL:        noreply@localhost
+      APP_URL:           http://localhost:5000
+    ports:
+      - "5000:5000"
+    command: >
+      sh -c "flask db upgrade &&
+             gunicorn app:app --workers 1 --bind 0.0.0.0:5000 --reload"
+
+volumes:
+  pgdata:

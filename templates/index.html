@@ -1,0 +1,304 @@
+{% extends "base.html" %}
+
+{% block title %}ALL — Join the Waitlist · Transparent Mobile, Real Value{% endblock %}
+{% block meta_description %}Join the ALL waitlist. We're building a transparent, affordable mobile alternative. Founding members get 2 full days of unlimited access free at launch. No credit card required.{% endblock %}
+{% block meta_keywords %}ALL mobile, affordable mobile plan, transparent pricing, mobile waitlist, early access mobile, no hidden fees mobile{% endblock %}
+{% block canonical %}https://joinall.com{% endblock %}
+{% block og_title %}ALL — Join the Waitlist · Transparent Mobile, Real Value{% endblock %}
+{% block og_description %}Mobile connectivity shouldn't cost more and deliver less. Join ALL's waitlist and get 2 days unlimited access free at launch.{% endblock %}
+{% block tw_title %}ALL — Join the Waitlist · Transparent Mobile, Real Value{% endblock %}
+{% block tw_description %}Join the ALL waitlist. Founding members get 2 full days unlimited access free at launch. No credit card required.{% endblock %}
+
+{% block head %}
+<style>
+  /* Mobile-first hero layout */
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+  @media (min-width: 1024px) {
+    .hero-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+  }
+
+  /* Feature grid */
+  .feat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: rgba(26,61,43,0.1);
+    border: 1px solid rgba(26,61,43,0.1);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  @media (min-width: 768px) {
+    .feat-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  /* Steps grid */
+  .steps-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  @media (min-width: 768px) {
+    .steps-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  /* Nav pill on mobile — hide text, keep dot */
+  .waitlist-badge-text { display: inline; }
+  @media (max-width: 480px) {
+    .waitlist-badge-text { display: none; }
+    .waitlist-badge { padding: 6px 10px !important; }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+{# ─── NAV ─── #}
+<nav class="site-nav" role="navigation" aria-label="Main navigation">
+  <div style="max-width:1280px; margin:0 auto; padding:0 1.5rem; height:60px; display:flex; align-items:center; justify-content:space-between;">
+
+    {# Logo #}
+    <a href="/" aria-label="ALL — Home" style="display:flex; align-items:center; gap:0.75rem; text-decoration:none;">
+      <div style="width:36px; height:36px; background:#1A3D2B; border:1px solid rgba(61,122,88,0.4); border-radius:3px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+        <span style="font-family:'Playfair Display',serif; font-weight:900; color:#F5F0E8; font-size:1rem; line-height:1;">A</span>
+      </div>
+      <span style="font-family:'Playfair Display',serif; font-weight:700; color:#F5F0E8; font-size:1.15rem; letter-spacing:-0.01em;">ALL</span>
+    </a>
+
+    {# Right side #}
+    <div style="display:flex; align-items:center; gap:1rem;">
+      {# About link #}
+      <a href="/about" class="hide-mobile" style="font-family:'DM Sans',sans-serif; font-size:0.78rem; font-weight:600; color:rgba(245,240,232,0.55); text-decoration:none; padding:6px 12px; border:1px solid rgba(245,240,232,0.15); border-radius:2px; transition:color 0.15s, border-color 0.15s;"
+         onmouseover="this.style.color='rgba(245,240,232,0.9)'; this.style.borderColor='rgba(245,240,232,0.35)';"
+         onmouseout="this.style.color='rgba(245,240,232,0.55)'; this.style.borderColor='rgba(245,240,232,0.15)';">
+        About
+      </a>
+      {# Waitlist badge #}
+      <div class="waitlist-badge" style="display:flex; align-items:center; gap:0.5rem; padding:7px 14px; background:rgba(61,122,88,0.18); border:1px solid rgba(61,122,88,0.3); border-radius:2px;">
+        <span class="pulse-dot" style="width:7px; height:7px; border-radius:50%; background:#6BAF8C; flex-shrink:0; display:block;"></span>
+        <span class="waitlist-badge-text" style="font-family:'DM Sans',sans-serif; font-size:0.72rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#6BAF8C;">Waitlist Open</span>
+      </div>
+      {# Admin link — clearly visible #}
+      <a href="/admin" style="font-family:'DM Sans',sans-serif; font-size:0.78rem; font-weight:600; color:rgba(245,240,232,0.55); text-decoration:none; padding:6px 12px; border:1px solid rgba(245,240,232,0.15); border-radius:2px; transition:color 0.15s, border-color 0.15s;"
+         onmouseover="this.style.color='rgba(245,240,232,0.9)'; this.style.borderColor='rgba(245,240,232,0.35)';"
+         onmouseout="this.style.color='rgba(245,240,232,0.55)'; this.style.borderColor='rgba(245,240,232,0.15)';">
+        Admin
+      </a>
+    </div>
+
+  </div>
+</nav>
+
+{# ─── TICKER ─── #}
+<div style="overflow:hidden; background:#1A3D2B; border-bottom:1px solid rgba(61,122,88,0.2); padding:9px 0;" role="marquee" aria-label="Announcements">
+  <div class="animate-ticker" style="display:flex; white-space:nowrap;">
+    {% for _ in range(10) %}
+    <span style="font-family:'DM Sans',sans-serif; font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.13em; color:rgba(107,175,140,0.7); margin:0 2.5rem;">
+      Early Access Open &nbsp;·&nbsp; Founding Members Get 2 Days Free &nbsp;·&nbsp; Limited Spots &nbsp;·&nbsp; Refer &amp; Rise &nbsp;·&nbsp; No Credit Card
+    </span>
+    {% endfor %}
+  </div>
+</div>
+
+{# ─── HERO ─── #}
+<section style="background:#F5F0E8;" aria-labelledby="hero-heading">
+  <div style="max-width:1280px; margin:0 auto; padding:3.5rem 1.5rem 4rem;">
+    <div class="hero-grid">
+
+      {# ── LEFT col ── #}
+      <div>
+
+        {# Eyebrow #}
+        <div class="animate-fade-up" style="display:inline-flex; align-items:center; margin-bottom:1.75rem; padding:8px 16px; background:rgba(180,120,40,0.07); border:1px solid rgba(180,120,40,0.22); border-radius:2px;">
+          <span style="font-family:'DM Sans',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.13em; text-transform:uppercase; color:#7A4F1A;">
+            Founding Members · 2 Days Unlimited Access — Free
+          </span>
+        </div>
+
+        {# Headline #}
+        <h1 id="hero-heading" class="hero-headline animate-fade-up anim-delay-1" style="margin-bottom:1.5rem;">
+          Your email<br/>
+          <span class="accent">brings ALL</span><br/>
+          to life.
+        </h1>
+
+        {# Body copy #}
+        <p class="animate-fade-up anim-delay-2" style="font-family:'DM Sans',sans-serif; font-size:1rem; line-height:1.75; color:rgba(13,31,23,0.6); margin-bottom:0.75rem; max-width:30rem;">
+          We're building something extraordinary — and the demand you create <em>today</em> is what makes it real. Sign up, share your link, and earn your place at the front of the line by becoming a founding member.
+        </p>
+
+        <p class="animate-fade-up anim-delay-2" style="font-family:'DM Sans',sans-serif; font-size:0.875rem; line-height:1.65; color:rgba(13,31,23,0.42); margin-bottom:2.25rem; max-width:28rem;">
+          Every founding member receives <strong style="color:#1A3D2B; font-weight:700;">2 full days of unlimited access</strong> at launch — no credit card required.
+        </p>
+
+        {# Form #}
+        <div class="animate-fade-up anim-delay-3" style="max-width:32rem; margin-bottom:1.75rem;">
+          <form method="POST" action="/join?ref={{ request.args.get('ref', '') }}" aria-label="Join waitlist">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            <div style="display:flex; flex-direction:column; gap:0.75rem;">
+              <input type="email" name="email" required
+                     placeholder="Enter your email address"
+                     autocomplete="email"
+                     aria-label="Email address"
+                     class="input-field"
+                     style="font-size:1rem; padding:14px 16px;"/>
+              <button type="submit" class="btn-primary" style="width:100%; padding:14px 28px; font-size:0.9rem; justify-content:center;">
+                Secure My Spot →
+              </button>
+            </div>
+          </form>
+        </div>
+
+        {# Social proof #}
+        <div class="animate-fade-up anim-delay-4" style="display:flex; align-items:center; gap:0.75rem;">
+          <div style="display:flex; margin-right:0.25rem;">
+            {% for pair in [('#1A3D2B','A'),('#2A5C40','J'),('#3D7A58','K'),('#6BAF8C','M')] %}
+            <div style="width:30px; height:30px; border-radius:50%; background:{{ pair[0] }}; border:2px solid #F5F0E8; display:flex; align-items:center; justify-content:center; margin-left:{% if loop.first %}0{% else %}-8px{% endif %}; z-index:{{ 10 - loop.index0 }}; position:relative;">
+              <span style="font-family:'DM Sans',sans-serif; font-weight:700; color:#F5F0E8; font-size:9px;">{{ pair[1] }}</span>
+            </div>
+            {% endfor %}
+          </div>
+          <p style="font-family:'DM Sans',sans-serif; font-size:0.875rem; color:rgba(13,31,23,0.45);">
+            <strong style="color:#0D1F17; font-weight:700; font-size:1rem;">{{ total }}</strong>
+            people already on the waitlist
+          </p>
+        </div>
+
+      </div>
+
+      {# ── RIGHT col — Why We Built ALL ── #}
+      <div class="animate-fade-up anim-delay-2">
+        <div style="background:#1A3D2B; border:1px solid rgba(61,122,88,0.3); border-radius:4px; padding:2.25rem 2rem;">
+
+          <p style="font-family:'DM Sans',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.13em; text-transform:uppercase; color:#6BAF8C; margin-bottom:1rem;">Staying connected shouldn't cost more and deliver less.</p>
+
+          <h2 style="font-family:'Playfair Display',serif; color:#F5F0E8; font-size:1.65rem; font-weight:800; line-height:1.18; margin-bottom:1.5rem;">
+            Help Shape The Future of Mobile — Transparent, Affordable, Unlimited.
+          </h2>
+
+          <div style="height:1px; background:rgba(107,175,140,0.18); margin-bottom:1.75rem;"></div>
+
+          {# Pillars #}
+          {% for item in [
+            ("Unlimited that's actually unlimited", "No throttling, no fine print, no asterisks — when we say unlimited, we mean it."),
+            ("Low Cost", "A monthly plan that lets you call any ALL user for free, with no extra cost."),
+            ("Data That Lasts", "Get what you pay for — data that doesn't disappear before the month does."),
+          ] %}
+          
+          <div style="display:flex; align-items:flex-start; gap:0.75rem; {% if not loop.last %}margin-bottom:1rem;{% endif %}">
+            <div style="width:20px; height:20px; flex-shrink:0; display:flex; align-items:center; justify-content:center; margin-top:2px; background:rgba(107,175,140,0.15); border:1px solid rgba(107,175,140,0.3); border-radius:2px;">
+              <span style="font-weight:800; color:#6BAF8C; font-size:10px; line-height:1;">✓</span>
+            </div>
+            <div>
+              <p style="font-family:'DM Sans',sans-serif; font-weight:700; color:#F5F0E8; font-size:0.875rem; margin-bottom:2px;">{{ item[0] }}</p>
+              <p style="font-family:'DM Sans',sans-serif; font-size:0.78rem; line-height:1.6; color:rgba(245,240,232,0.45);">{{ item[1] }}</p>
+            </div>
+          </div>
+          {% endfor %}
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{# ─── FEATURES ─── #}
+<section style="background:#EDEAE0; border-top:1px solid rgba(26,61,43,0.08);" aria-labelledby="features-heading">
+  <div style="max-width:1280px; margin:0 auto; padding:3.5rem 1.5rem;">
+
+    <div style="margin-bottom:2rem;">
+      <p class="eyebrow" style="margin-bottom:0.6rem;">What You Get</p>
+      <h2 id="features-heading" style="font-family:'Playfair Display',serif; font-weight:800; font-size:1.6rem; color:#0D1F17;">Built for early believers</h2>
+    </div>
+
+    <div class="feat-grid">
+      {% for feat in [
+        ("Smart Referral Links", "Every signup you bring moves you up the queue.", "01"),
+        ("Tiered Rewards", "Unlock perks at every milestone you hit.", "02"),
+        ("Live Leaderboard", "See where you rank against other early adopters.", "03"),
+        ("Instant Dashboard", "Your personal link and stats, ready immediately.", "04"),
+        ("2-Day Unlimited Perk", "Full access, zero restrictions, from day one.", "05"),
+        ("No Spam, Ever", "We'll only contact you when it truly matters.", "06"),
+      ] %}
+      <div style="background:#FFFFFF; padding:1.5rem 1.75rem;">
+        <p class="eyebrow" style="margin-bottom:0.6rem;">{{ feat[2] }}</p>
+        <p style="font-family:'DM Sans',sans-serif; font-weight:700; font-size:0.875rem; color:#0D1F17; margin-bottom:0.4rem;">{{ feat[0] }}</p>
+        <p style="font-family:'DM Sans',sans-serif; font-size:0.78rem; line-height:1.65; color:rgba(13,31,23,0.5);">{{ feat[1] }}</p>
+      </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+{# ─── HOW IT WORKS ─── #}
+<section style="background:#1A3D2B; border-top:1px solid rgba(61,122,88,0.2);" aria-labelledby="how-heading">
+  <div style="max-width:1280px; margin:0 auto; padding:4rem 1.5rem;">
+
+    <div style="text-align:center; margin-bottom:3rem;">
+      <p class="eyebrow" style="color:#6BAF8C; margin-bottom:0.6rem;">How It Works</p>
+      <h2 id="how-heading" style="font-family:'Playfair Display',serif; font-weight:800; font-size:1.85rem; color:#F5F0E8;">Three steps to the front</h2>
+    </div>
+
+    <div class="steps-grid">
+      {% for step in [
+        ("01", "Sign Up", "Drop your email. You instantly receive a unique referral link and your confirmed position in the queue."),
+        ("02", "Share Your Link", "Share with your network. Every sign-up via your link moves you closer to the front."),
+        ("03", "Claim Your Reward", "When ALL launches, founding members get 2 full days of unlimited access — our thanks for believing first."),
+      ] %}
+      <div style="background:rgba(245,240,232,0.04); border:1px solid rgba(61,122,88,0.25); border-radius:3px; padding:1.75rem 2rem;">
+        <p style="font-family:'Playfair Display',serif; font-weight:900; font-size:3rem; color:rgba(107,175,140,0.2); line-height:1; margin-bottom:1.25rem;">{{ step[0] }}</p>
+        <p style="font-family:'DM Sans',sans-serif; font-weight:700; color:#F5F0E8; font-size:0.9rem; margin-bottom:0.6rem;">{{ step[1] }}</p>
+        <p style="font-family:'DM Sans',sans-serif; font-size:0.85rem; line-height:1.7; color:rgba(245,240,232,0.5);">{{ step[2] }}</p>
+      </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+{# ─── CLOSING CTA ─── #}
+<section style="background:#EDE5D4; border-top:1px solid rgba(26,61,43,0.1);" aria-labelledby="cta-heading">
+  <div style="max-width:36rem; margin:0 auto; padding:4rem 1.5rem; text-align:center;">
+    <h2 id="cta-heading" style="font-family:'Playfair Display',serif; font-weight:800; font-size:clamp(1.5rem,4vw,1.85rem); line-height:1.25; color:#0D1F17; margin-bottom:1rem;">
+      "We don't launch until the world is ready —
+      <span style="color:#1A3D2B;">and you're the proof.</span>"
+    </h2>
+    <p style="font-family:'DM Sans',sans-serif; font-size:0.85rem; color:rgba(13,31,23,0.4); margin-bottom:2.5rem;">— The ALL Team</p>
+    <form method="POST" action="/join?ref={{ request.args.get('ref', '') }}" aria-label="Join waitlist">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+      <div style="display:flex; flex-direction:column; gap:0.75rem;">
+        <input type="email" name="email" required placeholder="your@email.com" autocomplete="email" class="input-field" style="font-size:1rem;"/>
+        <button type="submit" class="btn-primary" style="width:100%; padding:14px; font-size:0.9rem;">I'm In →</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+{# ─── FOOTER ─── #}
+<footer style="background:#0D1F17; border-top:1px solid rgba(61,122,88,0.1);" role="contentinfo">
+  <div style="max-width:1280px; margin:0 auto; padding:1.75rem 1.5rem; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:1rem;">
+    <div style="display:flex; align-items:center; gap:0.65rem;">
+      <div style="width:26px; height:26px; background:#2A5C40; border-radius:2px; display:flex; align-items:center; justify-content:center;">
+        <span style="font-family:'Playfair Display',serif; font-weight:900; color:#F5F0E8; font-size:0.8rem;">A</span>
+      </div>
+      <span style="font-family:'Playfair Display',serif; font-weight:700; color:#F5F0E8; font-size:0.9rem;">ALL</span>
+    </div>
+    <p style="font-family:'DM Sans',sans-serif; font-size:0.75rem; color:rgba(245,240,232,0.2); text-align:center;">
+      © 2025 ALL. Built for those who act first.
+    </p>
+    <a href="/admin" style="font-family:'DM Sans',sans-serif; font-size:0.75rem; color:rgba(245,240,232,0.35); text-decoration:none; border-bottom:1px solid rgba(245,240,232,0.15); padding-bottom:1px;"
+       onmouseover="this.style.color='rgba(245,240,232,0.7)'"
+       onmouseout="this.style.color='rgba(245,240,232,0.35)'">Admin</a>
+  </div>
+</footer>
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Check Your Inbox — ALL{% endblock %}
+{% block meta_description %}Verify your email to confirm your spot on the ALL waitlist.{% endblock %}
+{% block robots %}<meta name="robots" content="noindex, nofollow"/>{% endblock %}
+
+{% block content %}
+<div style="min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:2rem 1.25rem; background:#F0EBE1;">
+
+  {# Logo #}
+  <a href="/" style="display:flex; align-items:center; gap:0.65rem; text-decoration:none; margin-bottom:2.5rem;">
+    <div style="width:32px; height:32px; background:#1A3D2B; border-radius:3px; display:flex; align-items:center; justify-content:center;">
+      <span style="font-family:'Playfair Display',serif; font-weight:900; color:#F5F0E8; font-size:0.95rem;">A</span>
+    </div>
+    <span style="font-family:'Playfair Display',serif; font-weight:700; color:#0D1F17; font-size:1.1rem;">ALL</span>
+  </a>
+
+  <div class="card animate-fade-up" style="width:100%; max-width:26rem; padding:2.75rem 2.25rem; text-align:center;">
+
+    {# Icon #}
+    <div style="width:52px; height:52px; background:#1A3D2B; border-radius:3px; display:flex; align-items:center; justify-content:center; margin:0 auto 1.75rem;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F5F0E8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+      </svg>
+    </div>
+
+    <p class="eyebrow" style="margin-bottom:0.75rem; text-align:center;">Email Verification</p>
+    <h1 style="font-family:'Playfair Display',serif; font-weight:800; color:#0D1F17; font-size:1.6rem; margin-bottom:1rem;">Check your inbox</h1>
+    <p style="font-family:'DM Sans',sans-serif; font-size:0.9rem; line-height:1.7; color:rgba(13,31,23,0.6); margin-bottom:0.5rem;">
+      We sent a verification link to
+    </p>
+    <p style="font-family:'DM Mono',monospace; font-size:0.875rem; color:#1A3D2B; font-weight:500; margin-bottom:0.75rem; word-break:break-all;">{{ email }}</p>
+    <p style="font-family:'DM Sans',sans-serif; font-size:0.875rem; line-height:1.7; color:rgba(13,31,23,0.6); margin-bottom:0.4rem;">
+      Click it to confirm your spot on the ALL waitlist.
+    </p>
+    <p style="font-family:'DM Sans',sans-serif; font-size:0.78rem; color:rgba(13,31,23,0.35); margin-bottom:2rem;">Link expires in 24 hours.</p>
+
+    <div style="height:1px; background:rgba(26,61,43,0.1); margin-bottom:1.5rem;"></div>
+
+    <form method="POST" action="{{ url_for('resend_verification') }}">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+      <input type="hidden" name="email" value="{{ email }}"/>
+      <button type="submit" style="background:none; border:none; cursor:pointer; font-family:'DM Sans',sans-serif; font-size:0.875rem; font-weight:600; color:rgba(13,31,23,0.4); text-decoration:underline; text-underline-offset:3px;"
+              onmouseover="this.style.color='#1A3D2B'"
+              onmouseout="this.style.color='rgba(13,31,23,0.4)'">
+        Didn't receive it? Resend verification email
+      </button>
+    </form>
+
+    <a href="/" style="display:block; margin-top:1.25rem; font-family:'DM Sans',sans-serif; font-size:0.8rem; color:rgba(13,31,23,0.3); text-decoration:none;"
+       onmouseover="this.style.color='#0D1F17'"
+       onmouseout="this.style.color='rgba(13,31,23,0.3)'">← Back to home</a>
+
+  </div>
+</div>
+{% endblock %}

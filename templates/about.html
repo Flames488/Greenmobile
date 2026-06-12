@@ -1,0 +1,236 @@
+{% extends "base.html" %}
+
+{% block title %}About ALL — Why We're Fixing Mobile Network Costs{% endblock %}
+{% block meta_description %}ALL exists to end overpriced, fragmented mobile plans. One affordable monthly subscription gives you calls across every network — no more juggling SIMs or paying network-specific rates.{% endblock %}
+{% block meta_keywords %}ALL, about ALL, affordable mobile, cross-network calling, any network plan, mobile subscription, transparent pricing, mobile data Nigeria{% endblock %}
+
+{% block canonical %}YOUR_DOMAIN_HERE/about{% endblock %}
+
+{% block og_title %}About ALL — One Plan, Every Network{% endblock %}
+{% block og_description %}Why ALL was built: ending the high cost of staying connected. Subscribe monthly and call any network, all month, for free.{% endblock %}
+{% block og_url %}YOUR_DOMAIN_HERE/about{% endblock %}
+
+{% block tw_title %}About ALL — One Plan, Every Network{% endblock %}
+{% block tw_description %}One affordable monthly subscription. Calls to any network, all month. This is why ALL exists.{% endblock %}
+
+{% block head %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "name": "About ALL",
+  "url": "YOUR_DOMAIN_HERE/about",
+  "description": "ALL is building an affordable mobile alternative — one subscription, calls to any network, no hidden costs.",
+  "mainEntity": {
+    "@type": "Organization",
+    "name": "ALL",
+    "url": "YOUR_DOMAIN_HERE",
+    "description": "ALL offers a monthly subscription plan that includes free calls to any network, ending the high cost of fragmented mobile plans."
+  }
+}
+</script>
+{% endblock %}
+
+{% block content %}
+
+{# ─── NAV ─── #}
+<nav class="site-nav" role="navigation" aria-label="Main navigation">
+  <div style="max-width:1280px; margin:0 auto; padding:0 1.5rem; height:60px; display:flex; align-items:center; justify-content:space-between;">
+
+    {# Logo #}
+    <a href="/" aria-label="ALL — Home" style="display:flex; align-items:center; gap:0.75rem; text-decoration:none;">
+      <div style="width:36px; height:36px; background:#1A3D2B; border:1px solid rgba(61,122,88,0.4); border-radius:3px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+        <span style="font-family:'Playfair Display',serif; font-weight:900; color:#F5F0E8; font-size:1rem; line-height:1;">A</span>
+      </div>
+      <span style="font-family:'Playfair Display',serif; font-weight:700; color:#F5F0E8; font-size:1.15rem; letter-spacing:-0.01em;">ALL</span>
+    </a>
+
+    {# Right side #}
+    <div style="display:flex; align-items:center; gap:1rem;">
+      <a href="/" style="font-family:'DM Sans',sans-serif; font-size:0.78rem; font-weight:600; color:rgba(245,240,232,0.55); text-decoration:none; padding:6px 12px; border:1px solid rgba(245,240,232,0.15); border-radius:2px; transition:color 0.15s, border-color 0.15s;"
+         onmouseover="this.style.color='rgba(245,240,232,0.9)'; this.style.borderColor='rgba(245,240,232,0.35)';"
+         onmouseout="this.style.color='rgba(245,240,232,0.55)'; this.style.borderColor='rgba(245,240,232,0.15)';">
+        ← Back home
+      </a>
+      <a href="/admin" class="hide-mobile" style="font-family:'DM Sans',sans-serif; font-size:0.78rem; font-weight:600; color:rgba(245,240,232,0.55); text-decoration:none; padding:6px 12px; border:1px solid rgba(245,240,232,0.15); border-radius:2px; transition:color 0.15s, border-color 0.15s;"
+         onmouseover="this.style.color='rgba(245,240,232,0.9)'; this.style.borderColor='rgba(245,240,232,0.35)';"
+         onmouseout="this.style.color='rgba(245,240,232,0.55)'; this.style.borderColor='rgba(245,240,232,0.15)';">
+        Admin
+      </a>
+    </div>
+
+  </div>
+</nav>
+
+{# ─── HERO / WHY ALL EXISTS ─── #}
+<section style="max-width:1280px; margin:0 auto; padding: clamp(2.5rem, 6vw, 5rem) 1.5rem;" aria-labelledby="about-heading">
+  <div style="display:grid; grid-template-columns: 1fr; gap: clamp(2.5rem, 6vw, 4rem); align-items:center;"
+       class="about-grid">
+
+    {# ── Logo / brand mark side ── #}
+    <div style="display:flex; flex-direction:column; align-items:flex-start; gap:1.5rem;" class="animate-fade-up anim-delay-1">
+      <div style="width:120px; height:120px; background:#1A3D2B; border:1px solid rgba(61,122,88,0.4); border-radius:8px; display:flex; align-items:center; justify-content:center; flex-shrink:0;"
+           aria-hidden="true">
+        <span style="font-family:'Playfair Display',serif; font-weight:900; color:#F5F0E8; font-size:3.5rem; line-height:1;">A</span>
+      </div>
+      <div>
+        <span class="eyebrow">Why ALL exists</span>
+        <h1 class="hero-headline" style="font-size:clamp(2.2rem, 6vw, 3.6rem); margin-top:0.5rem;">
+          Mobile shouldn't<br/>
+          cost <span class="accent">this much</span>.
+        </h1>
+      </div>
+      <p style="font-family:'DM Sans',sans-serif; font-size:1rem; line-height:1.7; color:rgba(13,31,23,0.65); max-width:30rem;">
+        Every day, people juggle multiple SIM cards just to get a fair call rate on different
+        networks, top up airtime they didn't plan to spend, and lose money to plans that don't
+        reflect how they actually live. We built ALL because connectivity is a basic need —
+        not a place to overpay.
+      </p>
+    </div>
+
+    {# ── Mission / problem statement side ── #}
+    <div class="card animate-fade-up anim-delay-2" style="padding: clamp(1.75rem, 4vw, 2.75rem);">
+      <span class="badge-green" style="margin-bottom:1rem;">Our mission</span>
+      <h2 style="font-family:'Playfair Display',serif; font-weight:800; font-size:clamp(1.5rem, 3.5vw, 2.1rem); color:#0D1F17; line-height:1.2; margin-bottom:1rem;">
+        Resolving the real cost of staying connected.
+      </h2>
+      <p style="font-family:'DM Sans',sans-serif; font-size:0.95rem; line-height:1.75; color:rgba(13,31,23,0.65); margin-bottom:1.25rem;">
+        Mobile users across Nigeria pay a hidden tax every month: different rates for different
+        networks, separate SIMs to avoid off-network charges, and data bundles that expire
+        before they're used. ALL was created to remove that tax entirely.
+      </p>
+      <p style="font-family:'DM Sans',sans-serif; font-size:0.95rem; line-height:1.75; color:rgba(13,31,23,0.65);">
+        We're building a single platform where one subscription replaces the patchwork of plans,
+        SIMs, and top-ups people currently rely on just to stay reachable.
+      </p>
+
+      <div class="divider" style="margin:1.75rem 0;"></div>
+
+      <ul style="display:flex; flex-direction:column; gap:0.85rem; list-style:none;">
+        <li style="display:flex; gap:0.75rem; align-items:flex-start;">
+          <span aria-hidden="true" style="color:#1A3D2B; font-weight:700; flex-shrink:0;">✓</span>
+          <span style="font-family:'DM Sans',sans-serif; font-size:0.875rem; color:#0D1F17; line-height:1.6;">Transparent pricing — no hidden charges or surprise deductions</span>
+        </li>
+        <li style="display:flex; gap:0.75rem; align-items:flex-start;">
+          <span aria-hidden="true" style="color:#1A3D2B; font-weight:700; flex-shrink:0;">✓</span>
+          <span style="font-family:'DM Sans',sans-serif; font-size:0.875rem; color:#0D1F17; line-height:1.6;">One plan that works the same on every network</span>
+        </li>
+        <li style="display:flex; gap:0.75rem; align-items:flex-start;">
+          <span aria-hidden="true" style="color:#1A3D2B; font-weight:700; flex-shrink:0;">✓</span>
+          <span style="font-family:'DM Sans',sans-serif; font-size:0.875rem; color:#0D1F17; line-height:1.6;">Built for everyday Nigerians, not just power users</span>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+{# ─── THE SUBSCRIPTION PROMISE ─── #}
+<section style="background:#1A3D2B;" aria-labelledby="subscription-heading">
+  <div style="max-width:1280px; margin:0 auto; padding: clamp(3rem, 7vw, 5.5rem) 1.5rem; text-align:center;">
+
+    <span class="eyebrow animate-fade-up anim-delay-1" style="color:#6BAF8C;">The ALL promise</span>
+
+    <h2 id="subscription-heading" class="animate-fade-up anim-delay-2"
+        style="font-family:'Playfair Display',serif; font-weight:900; color:#F5F0E8; line-height:1.15; font-size:clamp(1.8rem, 5.5vw, 3.2rem); margin: 0.75rem auto 1.25rem; max-width:46rem;">
+      One monthly subscription.<br/>
+      Calls to <span style="color:#6BAF8C;">any network</span>, all month — free.
+    </h2>
+
+    <p class="animate-fade-up anim-delay-3"
+       style="font-family:'DM Sans',sans-serif; font-size:clamp(0.95rem, 2vw, 1.15rem); color:rgba(245,240,232,0.7); max-width:38rem; margin:0 auto 2.5rem; line-height:1.75;">
+      Subscribe once a month and call anyone on any network — MTN, Airtel, Glo, 9mobile, and more —
+      at no extra cost for the entire billing cycle. No off-network rates, no second SIM,
+      no calculating who's on what network before you dial.
+    </p>
+
+    {# Three pillars #}
+    <div style="display:grid; grid-template-columns: 1fr; gap:1.25rem; max-width:56rem; margin:0 auto;" class="pillars-grid">
+
+      <div class="card-forest animate-fade-up anim-delay-2" style="padding:1.75rem; text-align:left;">
+        <div style="width:40px; height:40px; background:rgba(107,175,140,0.15); border:1px solid rgba(107,175,140,0.3); border-radius:3px; display:flex; align-items:center; justify-content:center; margin-bottom:1rem;">
+          <span style="font-family:'Playfair Display',serif; font-weight:900; color:#6BAF8C; font-size:1.1rem;">1</span>
+        </div>
+        <h3 style="font-family:'Playfair Display',serif; font-weight:700; font-size:1.05rem; color:#F5F0E8; margin-bottom:0.5rem;">Subscribe monthly</h3>
+        <p style="font-family:'DM Sans',sans-serif; font-size:0.85rem; color:rgba(245,240,232,0.55); line-height:1.65;">
+          One transparent price, billed monthly. No contracts, no surprise renewals at a higher rate.
+        </p>
+      </div>
+
+      <div class="card-forest animate-fade-up anim-delay-3" style="padding:1.75rem; text-align:left;">
+        <div style="width:40px; height:40px; background:rgba(107,175,140,0.15); border:1px solid rgba(107,175,140,0.3); border-radius:3px; display:flex; align-items:center; justify-content:center; margin-bottom:1rem;">
+          <span style="font-family:'Playfair Display',serif; font-weight:900; color:#6BAF8C; font-size:1.1rem;">2</span>
+        </div>
+        <h3 style="font-family:'Playfair Display',serif; font-weight:700; font-size:1.05rem; color:#F5F0E8; margin-bottom:0.5rem;">Call any network</h3>
+        <p style="font-family:'DM Sans',sans-serif; font-size:0.85rem; color:rgba(245,240,232,0.55); line-height:1.65;">
+          MTN to Airtel, Glo to 9mobile — every call is treated the same. No off-network premium.
+        </p>
+      </div>
+
+      <div class="card-forest animate-fade-up anim-delay-4" style="padding:1.75rem; text-align:left;">
+        <div style="width:40px; height:40px; background:rgba(107,175,140,0.15); border:1px solid rgba(107,175,140,0.3); border-radius:3px; display:flex; align-items:center; justify-content:center; margin-bottom:1rem;">
+          <span style="font-family:'Playfair Display',serif; font-weight:900; color:#6BAF8C; font-size:1.1rem;">3</span>
+        </div>
+        <h3 style="font-family:'Playfair Display',serif; font-weight:700; font-size:1.05rem; color:#F5F0E8; margin-bottom:0.5rem;">Free for the month</h3>
+        <p style="font-family:'DM Sans',sans-serif; font-size:0.85rem; color:rgba(245,240,232,0.55); line-height:1.65;">
+          Once you're subscribed, cross-network calling costs nothing extra — for the full billing cycle.
+        </p>
+      </div>
+
+    </div>
+
+    <div class="animate-fade-up anim-delay-4" style="margin-top:2.5rem;">
+      <a href="/#join" class="btn-primary" style="background:#F5F0E8; color:#1A3D2B; border-color:#F5F0E8;">
+        Join the Waitlist →
+      </a>
+    </div>
+
+  </div>
+</section>
+
+{# ─── CLOSING STATEMENT ─── #}
+<section style="max-width:1280px; margin:0 auto; padding: clamp(3rem, 6vw, 5rem) 1.5rem; text-align:center;">
+  <p class="animate-fade-up anim-delay-1" style="font-family:'Playfair Display',serif; font-weight:700; font-size:clamp(1.3rem, 3.5vw, 1.9rem); color:#0D1F17; line-height:1.4; max-width:42rem; margin:0 auto;">
+    "Connectivity is something everyone needs — it shouldn't be something only some people
+    can afford to use freely."
+  </p>
+  <p style="font-family:'DM Sans',sans-serif; font-size:0.8rem; color:rgba(13,31,23,0.4); margin-top:1rem; letter-spacing:0.05em; text-transform:uppercase;">
+    — The ALL Team
+  </p>
+</section>
+
+{# ─── FOOTER ─── #}
+<footer style="background:#0D1F17; border-top:1px solid rgba(61,122,88,0.1);" role="contentinfo">
+  <div style="max-width:1280px; margin:0 auto; padding:1.75rem 1.5rem; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:1rem;">
+    <div style="display:flex; align-items:center; gap:0.65rem;">
+      <div style="width:26px; height:26px; background:#2A5C40; border-radius:2px; display:flex; align-items:center; justify-content:center;">
+        <span style="font-family:'Playfair Display',serif; font-weight:900; color:#F5F0E8; font-size:0.8rem;">A</span>
+      </div>
+      <span style="font-family:'Playfair Display',serif; font-weight:700; color:#F5F0E8; font-size:0.9rem;">ALL</span>
+    </div>
+    <p style="font-family:'DM Sans',sans-serif; font-size:0.75rem; color:rgba(245,240,232,0.2); text-align:center;">
+      © 2025 ALL. Built for those who act first.
+    </p>
+    <a href="/admin" style="font-family:'DM Sans',sans-serif; font-size:0.75rem; color:rgba(245,240,232,0.35); text-decoration:none; border-bottom:1px solid rgba(245,240,232,0.15); padding-bottom:1px;"
+       onmouseover="this.style.color='rgba(245,240,232,0.7)'"
+       onmouseout="this.style.color='rgba(245,240,232,0.35)'">Admin</a>
+  </div>
+</footer>
+
+<style>
+  @media (min-width: 900px) {
+    .about-grid {
+      grid-template-columns: 0.85fr 1.15fr !important;
+    }
+    .pillars-grid {
+      grid-template-columns: repeat(3, 1fr) !important;
+    }
+  }
+  @media (min-width: 640px) and (max-width: 899px) {
+    .pillars-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+  }
+</style>
+
+{% endblock %}

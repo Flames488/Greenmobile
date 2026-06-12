@@ -1,0 +1,203 @@
+{% extends "base.html" %}
+{% block title %}Your Waitlist Dashboard — ALL{% endblock %}
+{% block meta_description %}Your personal ALL waitlist dashboard. Track your referrals, queue position, and reward milestones.{% endblock %}
+{% block robots %}<meta name="robots" content="noindex, nofollow"/>{% endblock %}
+{% block head %}
+<style>
+  .dash-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
+  .share-btns { display:grid; grid-template-columns:repeat(3,1fr); gap:0.5rem; }
+  @media(max-width:480px) {
+    .dash-stats { grid-template-columns:1fr 1fr; }
+    .dash-stats > :last-child { grid-column: span 2; }
+    .share-btns { grid-template-columns:1fr; }
+  }
+</style>
+{% endblock %}
+{% block content %}
+
+{# ─── NAV ─── #}
+<nav class="site-nav">
+  <div class="max-w-4xl mx-auto px-6 md:px-10 py-4 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-3">
+      <div style="width:32px; height:32px; background:#2A5C40; border-radius:2px; display:flex; align-items:center; justify-content:center;" style="border-radius:2px;">
+        <span class="font-serif font-900 text-cream text-sm">A</span>
+      </div>
+      <span class="font-serif font-700 text-cream text-lg tracking-tight">ALL</span>
+    </a>
+    <div class="flex items-center gap-2 px-3 py-2 border" style="background:#1A3D2B; border-color:rgba(61,122,88,0.3); border-radius:3px;">
+      <span class="font-sans text-xs font-600" style="color:rgba(245,240,232,0.5);">Queue</span>
+      <span class="font-serif font-800 text-cream text-base">#{{ user.waitlist_position or '—' }}</span>
+    </div>
+  </div>
+</nav>
+
+<div class="max-w-4xl mx-auto px-4 md:px-6 py-10 pb-20 space-y-5">
+
+  {# ─── FOUNDING MEMBER BANNER ─── #}
+  <div class="animate-fade-up px-6 py-5 flex items-start gap-4" style="background:#1A3D2B; border:1px solid rgba(61,122,88,0.3); border-radius:4px;">
+    <div class="w-10 h-10 flex items-center justify-center flex-shrink-0"
+         style="background:rgba(245,158,11,0.15); border-radius:2px; border:1px solid rgba(245,158,11,0.2);">
+      <span class="text-lg">🎁</span>
+    </div>
+    <div>
+      <p class="font-sans font-700 text-cream text-sm mb-1">Founding Member Perk Confirmed</p>
+      <p class="font-sans text-sm leading-relaxed" style="color:rgba(245,240,232,0.55);">
+        You're guaranteed <strong style="color:#EDE5D4; font-weight:700;">2 full days of unlimited access</strong> the moment ALL launches — every feature, no payment required.
+      </p>
+    </div>
+  </div>
+
+  {# ─── WELCOME ─── #}
+  <div class="animate-fade-up anim-delay-1 card px-6 py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+    <div>
+      <p class="eyebrow mb-1">Signed in as</p>
+      <h2 class="font-serif font-800 text-ink text-xl">{{ user.email }}</h2>
+    </div>
+    <div class="text-right">
+      <p class="eyebrow mb-1">Referral Code</p>
+      <code class="font-mono text-sm px-3 py-1.5" style="background:rgba(26,61,43,0.07); border:1px solid rgba(26,61,43,0.12); border-radius:2px; color:#1A3D2B;">
+        {{ user.referral_code }}
+      </code>
+    </div>
+  </div>
+
+  {# ─── STATS ─── #}
+  <div class="animate-fade-up anim-delay-2 dash-stats">
+    {% for stat in [
+      ("Referrals",      user.referrals_count,           "People you've invited"),
+      ("Queue Position", "#" ~ (user.waitlist_position or "—"), "Your current rank"),
+      ("Rewards",        user.unlocked_rewards | length,  "Tiers unlocked"),
+    ] %}
+    <div class="card px-5 py-5 text-center">
+      <p class="font-serif font-900 text-ink mb-1" style="font-size:2rem; line-height:1;">{{ stat[1] }}</p>
+      <p class="font-sans font-700 text-xs text-ink/70 mb-0.5">{{ stat[0] }}</p>
+      <p class="font-sans text-[11px]" style="color:rgba(13,31,23,0.35);">{{ stat[2] }}</p>
+    </div>
+    {% endfor %}
+  </div>
+
+  {# ─── REFERRAL LINK ─── #}
+  <div class="animate-fade-up anim-delay-3 card p-6">
+    <p class="eyebrow mb-4">Your Referral Link</p>
+
+    <div class="flex gap-2 mb-4">
+      <input id="refLink" type="text" readonly value="{{ referral_url }}"
+             class="input-field flex-1 font-mono text-xs"/>
+      <button id="copyBtn" onclick="copyLink(this)" class="btn-primary btn-sm flex-shrink-0">
+        Copy Link
+      </button>
+    </div>
+
+    <div class="share-btns">
+      <a href="{{ x_url }}" target="_blank"
+         class="flex items-center justify-center gap-1.5 py-2.5 font-sans text-xs font-600 border transition-colors"
+         style="border-radius:3px; border-color:rgba(26,61,43,0.15); color:rgba(13,31,23,0.6);"
+         onmouseover="this.style.background='rgba(26,61,43,0.06)'"
+         onmouseout="this.style.background='transparent'">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        Share on X
+      </a>
+      <a href="{{ wa_url }}" target="_blank"
+         class="flex items-center justify-center gap-1.5 py-2.5 font-sans text-xs font-600 border transition-colors"
+         style="border-radius:3px; border-color:rgba(26,61,43,0.15); color:rgba(13,31,23,0.6);"
+         onmouseover="this.style.background='rgba(26,61,43,0.06)'"
+         onmouseout="this.style.background='transparent'">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>
+      <a href="{{ tg_url }}" target="_blank"
+         class="flex items-center justify-center gap-1.5 py-2.5 font-sans text-xs font-600 border transition-colors"
+         style="border-radius:3px; border-color:rgba(26,61,43,0.15); color:rgba(13,31,23,0.6);"
+         onmouseover="this.style.background='rgba(26,61,43,0.06)'"
+         onmouseout="this.style.background='transparent'">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        Telegram
+      </a>
+    </div>
+  </div>
+
+  {# ─── REWARD TIERS ─── #}
+  {% if tiers %}
+  <div class="animate-fade-up card p-6">
+    <p class="eyebrow mb-5">Reward Milestones</p>
+
+    {% if user.next_reward %}
+    <div class="px-5 py-4 mb-5" style="background:#EDE5D4; border:1px solid rgba(26,61,43,0.12); border-radius:3px;">
+      <div class="flex justify-between items-center mb-2">
+        <p class="font-sans text-xs font-600" style="color:rgba(13,31,23,0.5);">Next unlock</p>
+        <p class="font-sans text-xs font-700 text-forest">{{ user.referrals_count }} / {{ user.next_reward.referrals_required }} referrals</p>
+      </div>
+      <div class="progress-track mb-2">
+        <div class="progress-fill" style="width: {{ [(user.referrals_count / user.next_reward.referrals_required * 100), 100] | min }}%;"></div>
+      </div>
+      <p class="font-sans text-[11px]" style="color:rgba(13,31,23,0.45);">
+        {{ user.next_reward.referrals_required - user.referrals_count }} more to unlock
+        <strong style="color:#1A3D2B;">{{ user.next_reward.reward_name }}</strong>
+      </p>
+    </div>
+    {% endif %}
+
+    <div class="space-y-2">
+      {% for tier in tiers %}
+      {% set unlocked = user.referrals_count >= tier.referrals_required %}
+      <div class="flex items-center gap-4 px-4 py-3.5 transition-all"
+           style="border-radius:3px; border:1px solid {% if unlocked %}rgba(26,61,43,0.15){% else %}rgba(26,61,43,0.07){% endif %}; background:{% if unlocked %}rgba(26,61,43,0.04){% else %}transparent{% endif %};">
+        <span class="text-xl {{ '' if unlocked else 'opacity-30 grayscale' }}">{{ tier.badge_emoji }}</span>
+        <div class="flex-1 min-w-0">
+          <p class="font-sans font-700 text-sm {{ 'text-ink' if unlocked else '' }}" style="{{ '' if unlocked else 'color:rgba(13,31,23,0.4)' }}">{{ tier.reward_name }}</p>
+          {% if tier.reward_description %}
+          <p class="font-sans text-xs mt-0.5" style="color:rgba(13,31,23,0.4);">{{ tier.reward_description }}</p>
+          {% endif %}
+        </div>
+        {% if unlocked %}
+          <span class="badge-green text-[10px]">✓ Unlocked</span>
+        {% else %}
+          <span class="font-mono text-xs" style="color:rgba(13,31,23,0.3);">{{ tier.referrals_required - user.referrals_count }} to go</span>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  {# ─── LEADERBOARD ─── #}
+  <div class="animate-fade-up card p-6">
+    <p class="eyebrow mb-5">Waitlist Leaderboard</p>
+    <ol class="space-y-1">
+      {% for u in leaderboard %}
+      {% set is_me = u.id == user.id %}
+      <li class="flex items-center gap-3 px-3.5 py-3 transition-colors"
+          style="border-radius:3px; {% if is_me %}background:rgba(26,61,43,0.06); border:1px solid rgba(26,61,43,0.12);{% endif %}">
+        <span class="w-6 text-center font-sans font-700 text-xs" style="color:rgba(13,31,23,0.35);">
+          {% if loop.index == 1 %}🥇{% elif loop.index == 2 %}🥈{% elif loop.index == 3 %}🥉{% else %}{{ loop.index }}{% endif %}
+        </span>
+        <span class="flex-1 font-mono text-sm truncate {{ 'text-ink font-600' if is_me else '' }}" style="{{ '' if is_me else 'color:rgba(13,31,23,0.55)' }}">
+          {{ u.email | replace(u.email.split('@')[0][2:], '···') }}
+        </span>
+        {% if is_me %}<span class="badge-green text-[10px]">you</span>{% endif %}
+        <span class="font-serif font-800 text-sm {{ 'text-forest' if is_me else '' }}" style="{{ '' if is_me else 'color:rgba(13,31,23,0.35)' }}">{{ u.referrals_count }}</span>
+      </li>
+      {% endfor %}
+    </ol>
+  </div>
+
+</div>
+
+<footer class="py-8 text-center border-t" style="border-color:rgba(26,61,43,0.08);">
+  <p class="font-sans text-xs" style="color:rgba(13,31,23,0.3);">
+    ALL · <a href="/" class="hover:text-ink transition-colors" style="color:rgba(13,31,23,0.3);">Homepage</a>
+  </p>
+</footer>
+
+<script>
+function copyLink(btn) {
+  navigator.clipboard.writeText(document.getElementById('refLink').value);
+  btn.textContent = '✓ Copied';
+  btn.style.background = '#2A5C40';
+  setTimeout(() => {
+    btn.textContent = 'Copy Link';
+    btn.style.background = '';
+  }, 2000);
+}
+</script>
+{% endblock %}

@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  {# ── SEO: Page-level overrides ── #}
+  <title>{% block title %}ALL — Transparent Mobile. Real Value.{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}ALL is building a better mobile alternative — transparent pricing, real affordability, genuine value. Join the waitlist and get 2 days free at launch.{% endblock %}"/>
+  <meta name="keywords" content="{% block meta_keywords %}ALL, mobile network, affordable mobile, transparent pricing, waitlist, early access, mobile plan{% endblock %}"/>
+  <meta name="author" content="ALL"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="{% block canonical %}YOUR_DOMAIN_HERE{% endblock %}"/>
+
+  {# ── Open Graph ── #}
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="ALL"/>
+  <meta property="og:title" content="{% block og_title %}ALL — Transparent Mobile. Real Value.{% endblock %}"/>
+  <meta property="og:description" content="{% block og_description %}We're building a better mobile alternative. Join the waitlist and earn 2 days of unlimited access free at launch.{% endblock %}"/>
+  <meta property="og:url" content="{% block og_url %}YOUR_DOMAIN_HERE{% endblock %}"/>
+  <meta property="og:image" content="{% block og_image %}YOUR_DOMAIN_HERE/static/og-image.png{% endblock %}"/>
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+  <meta property="og:locale" content="en_US"/>
+
+  {# ── Twitter Card ── #}
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:site" content="@joinall"/>
+  <meta name="twitter:title" content="{% block tw_title %}ALL — Transparent Mobile. Real Value.{% endblock %}"/>
+  <meta name="twitter:description" content="{% block tw_description %}Join the ALL waitlist. Founding members get 2 days unlimited access free at launch.{% endblock %}"/>
+  <meta name="twitter:image" content="{% block tw_image %}YOUR_DOMAIN_HERE/static/og-image.png{% endblock %}"/>
+
+  {# ── Theme & Icons ── #}
+  <meta name="theme-color" content="#1A3D2B"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <meta name="apple-mobile-web-app-title" content="ALL"/>
+  <meta name="mobile-web-app-capable" content="yes"/>
+
+  {# ── Schema.org structured data ── #}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "ALL",
+    "url": "YOUR_DOMAIN_HERE",
+    "description": "ALL is building a transparent, affordable mobile alternative for everyday users.",
+    "sameAs": []
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          screens: {
+            'xs': '475px',
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: #F5F0E8;
+      color: #0D1F17;
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ── Typography helpers ── */
+    .font-serif  { font-family: 'Playfair Display', Georgia, serif; }
+    .font-sans   { font-family: 'DM Sans', system-ui, sans-serif; }
+    .font-mono   { font-family: 'DM Mono', monospace; }
+    .text-ink    { color: #0D1F17; }
+    .text-cream  { color: #F5F0E8; }
+    .text-forest { color: #1A3D2B; }
+
+    /* ── Eyebrow label ── */
+    .eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: #3D7A58;
+      display: block;
+    }
+
+    /* ── Nav ── */
+    .site-nav {
+      background: #0D1F17;
+      border-bottom: 1px solid rgba(61,122,88,0.15);
+    }
+
+    /* ── Cards ── */
+    .card {
+      background: #FFFFFF;
+      border: 1px solid rgba(26,61,43,0.1);
+      border-radius: 4px;
+      box-shadow: 0 1px 3px rgba(13,31,23,0.05), 0 4px 16px rgba(13,31,23,0.04);
+    }
+    .card-forest {
+      background: #1A3D2B;
+      border: 1px solid rgba(61,122,88,0.3);
+      border-radius: 4px;
+    }
+    .card-cream {
+      background: #EDE5D4;
+      border: 1px solid rgba(26,61,43,0.12);
+      border-radius: 4px;
+    }
+
+    /* ── Buttons ── */
+    .btn-primary {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: #1A3D2B;
+      color: #F5F0E8;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 0.875rem;
+      letter-spacing: 0.02em;
+      padding: 13px 28px;
+      border-radius: 3px;
+      border: 2px solid #1A3D2B;
+      cursor: pointer;
+      transition: background 0.18s, transform 0.15s;
+      white-space: nowrap;
+      text-decoration: none;
+      -webkit-appearance: none;
+    }
+    .btn-primary:hover  { background: #2A5C40; border-color: #2A5C40; transform: translateY(-1px); }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-outline {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: transparent; color: #1A3D2B;
+      font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.875rem;
+      letter-spacing: 0.02em; padding: 12px 28px;
+      border-radius: 3px; border: 2px solid #1A3D2B;
+      cursor: pointer; transition: background 0.18s, color 0.18s;
+      text-decoration: none; white-space: nowrap;
+    }
+    .btn-outline:hover { background: #1A3D2B; color: #F5F0E8; }
+    .btn-sm { font-size: 0.78rem !important; padding: 8px 18px !important; }
+
+    /* ── Inputs ── */
+    .input-field {
+      background: #FFFFFF;
+      border: 1.5px solid rgba(26,61,43,0.2);
+      border-radius: 3px;
+      padding: 13px 16px;
+      color: #0D1F17;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.875rem;
+      width: 100%;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+      -webkit-appearance: none;
+    }
+    .input-field::placeholder { color: rgba(13,31,23,0.35); }
+    .input-field:focus { border-color: #1A3D2B; box-shadow: 0 0 0 3px rgba(26,61,43,0.1); }
+
+    /* ── Badges ── */
+    .badge-forest { background:#1A3D2B; color:#F5F0E8; font-size:0.68rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:4px 12px; border-radius:2px; display:inline-block; }
+    .badge-cream  { background:#EDE5D4; color:#1A3D2B; font-size:0.68rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:4px 12px; border-radius:2px; border:1px solid rgba(26,61,43,0.15); display:inline-block; }
+    .badge-green  { background:rgba(61,122,88,0.12); color:#1A3D2B; border:1px solid rgba(61,122,88,0.3); font-size:0.68rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; padding:4px 12px; border-radius:2px; display:inline-block; }
+    .badge-amber  { background:rgba(180,120,40,0.1); color:#7A4F1A; border:1px solid rgba(180,120,40,0.25); font-size:0.68rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; padding:4px 12px; border-radius:2px; display:inline-block; }
+
+    /* ── Progress ── */
+    .progress-track { height:4px; border-radius:99px; background:rgba(26,61,43,0.1); overflow:hidden; }
+    .progress-fill  { height:100%; border-radius:99px; background:#1A3D2B; transition:width 1.2s cubic-bezier(0.4,0,0.2,1); }
+
+    /* ── Divider ── */
+    .divider { height:1px; background:rgba(26,61,43,0.1); border:none; margin:0; }
+
+    /* ── Ticker ── */
+    @keyframes ticker { 0% { transform:translateX(0); } 100% { transform:translateX(-50%); } }
+    .animate-ticker { animation: ticker 36s linear infinite; }
+
+    /* ── Pulse dot ── */
+    @keyframes livepulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+    .pulse-dot { animation: livepulse 2s ease-in-out infinite; }
+
+    /* ── Fade up ── */
+    @keyframes fadeInUp { from{opacity:0;transform:translateY(18px);} to{opacity:1;transform:translateY(0);} }
+    .animate-fade-up  { animation: fadeInUp 0.6s ease both; }
+    .anim-delay-1 { animation-delay:0.1s; }
+    .anim-delay-2 { animation-delay:0.22s; }
+    .anim-delay-3 { animation-delay:0.35s; }
+    .anim-delay-4 { animation-delay:0.48s; }
+    .anim-delay-5 { animation-delay:0.62s; }
+
+    /* ── KPI cards ── */
+    .kpi-card { background:#FFF; border:1px solid rgba(26,61,43,0.1); border-radius:4px; padding:20px; }
+    .kpi-label { font-size:0.65rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:rgba(13,31,23,0.4); margin-bottom:6px; display:block; }
+    .kpi-value { font-family:'Playfair Display',serif; font-size:2rem; font-weight:900; color:#0D1F17; line-height:1; display:block; }
+    .kpi-sub   { font-size:0.72rem; color:rgba(13,31,23,0.4); margin-top:4px; display:block; }
+
+    /* ── Data table ── */
+    .data-table { width:100%; border-collapse:collapse; }
+    .data-table th { font-family:'DM Sans',sans-serif; font-size:0.65rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:rgba(13,31,23,0.45); padding:10px 16px; text-align:left; border-bottom:1px solid rgba(26,61,43,0.1); }
+    .data-table td { padding:12px 16px; font-size:0.825rem; color:#0D1F17; border-bottom:1px solid rgba(26,61,43,0.06); }
+    .data-table tr:hover td { background:rgba(26,61,43,0.025); }
+    .data-table tr:last-child td { border-bottom:none; }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width:5px; height:5px; }
+    ::-webkit-scrollbar-track { background:#F5F0E8; }
+    ::-webkit-scrollbar-thumb { background:rgba(26,61,43,0.2); border-radius:4px; }
+
+    /* ── Mobile nav hidden elements ── */
+    @media (max-width: 640px) {
+      .hide-mobile { display: none !important; }
+    }
+
+    /* ── Responsive type ── */
+    .hero-headline {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      line-height: 1.02;
+      letter-spacing: -0.01em;
+      color: #0D1F17;
+      font-size: clamp(2.6rem, 8vw, 5.2rem);
+    }
+    .hero-headline .accent { color: #1A3D2B; }
+  </style>
+  {% block head %}{% endblock %}
+</head>
+<body>
+
+  {# Flash messages #}
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div style="position:fixed; top:1.25rem; right:1rem; z-index:999; display:flex; flex-direction:column; gap:0.5rem; max-width:22rem; width:calc(100% - 2rem);">
+        {% for category, message in messages %}
+          <div class="card animate-fade-up" style="padding:1rem 1.25rem; display:flex; align-items:center; gap:0.75rem; font-size:0.875rem;
+            {% if category == 'error' %}border-left:3px solid #DC2626;
+            {% elif category == 'success' %}border-left:3px solid #1A3D2B;
+            {% else %}border-left:3px solid #3D7A58;{% endif %}">
+            <span>{% if category == 'error' %}✕{% elif category == 'success' %}✓{% else %}ℹ{% endif %}</span>
+            <span style="font-family:'DM Sans',sans-serif; color:#0D1F17;">{{ message }}</span>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <div style="position:relative; z-index:10; min-height:100vh; display:flex; flex-direction:column;">
+    {% block content %}{% endblock %}
+  </div>
+
+</body>
+</html>

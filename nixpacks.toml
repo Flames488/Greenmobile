@@ -1,0 +1,9 @@
+# Railway Nixpacks build configuration
+[phases.setup]
+nixPkgs = ["python311", "postgresql_15"]
+
+[phases.install]
+cmds = ["pip install -r requirements.txt"]
+
+[start]
+cmd = "flask db upgrade && gunicorn app:app --workers 2 --bind 0.0.0.0:$PORT --timeout 120 --log-level info"

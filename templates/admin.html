@@ -1,0 +1,287 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard — Ziva Pro{% endblock %}
+{% block content %}
+
+{# ─── NAV ─── #}
+<nav class="flex items-center justify-between px-6 md:px-10 py-5 max-w-7xl mx-auto w-full border-b border-ink/[0.06]">
+  <div class="flex items-center gap-3">
+    <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center shadow-brand">
+      <span class="text-white text-xs font-bold font-display">Z</span>
+    </div>
+    <span class="font-display font-700 text-lg text-ink">Ziva <span class="text-gradient">Pro</span></span>
+    <span class="pill-green text-xs px-3 py-1 rounded-full font-display font-semibold">Admin</span>
+  </div>
+  <div class="flex items-center gap-4">
+    <div class="flex items-center gap-1.5 text-xs text-brand-600 font-display font-semibold">
+      <span class="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse inline-block"></span>
+      Live
+    </div>
+    <a href="/" class="text-xs text-ink-faint hover:text-ink-soft transition-colors">← Public</a>
+    <form method="POST" action="{{ url_for('admin_logout') }}" class="inline">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+      <button type="submit"
+              class="text-xs text-red-500 hover:text-red-600 transition-colors font-display font-semibold">
+        Log out
+      </button>
+    </form>
+  </div>
+</nav>
+
+<div class="max-w-7xl mx-auto px-4 py-8 space-y-7 w-full">
+
+  {# ─── Header ─── #}
+  <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
+    <div>
+      <h1 class="font-display font-800 text-2xl sm:text-3xl text-ink tracking-tight">Overview</h1>
+      <p class="text-ink-soft text-sm mt-1">A real-time snapshot of your waitlist performance.</p>
+    </div>
+  </div>
+
+  {# ─── Flash messages ─── #}
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, message in messages %}
+      <div class="px-5 py-3 rounded-xl text-sm font-display animate-fade-up
+        {% if category == 'error' %}bg-red-50 border border-red-200 text-red-700
+        {% elif category == 'success' %}bg-brand-50 border border-brand-200 text-brand-800
+        {% else %}bg-brand-50 border border-brand-200 text-brand-800{% endif %}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endwith %}
+
+  {# ─── KPI ROW ─── #}
+  <div class="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+    {% for kpi in [
+      ("Total Signups",   total_users,       "👥", "text-ink",          "All-time"),
+      ("Verified",        verified_users,    "✅", "text-brand-600",    "Confirmed emails"),
+      ("Total Referrals", total_referrals,   "🔗", "text-gradient",     "Actions made"),
+      ("Referred In",     referred_count,    "📨", "text-gradient-gold","Joined via link"),
+      ("Ref. Rate",       conversion_rate ~ "%", "📈", "text-brand-600","Conversion"),
+      ("Last 7 days",     recent_signups,    "🗓️", "text-ink",         "New signups"),
+    ] %}
+    <div class="card rounded-2xl p-4 relative overflow-hidden group hover:-translate-y-0.5 hover:shadow-card-lg transition-all duration-200">
+      <div class="absolute -top-5 -right-5 w-20 h-20 rounded-full opacity-[0.08] group-hover:opacity-[0.16] transition-opacity bg-brand-500"></div>
+      <p class="text-[10px] font-display font-semibold uppercase tracking-widest text-ink-faint mb-1.5">{{ kpi[0] }}</p>
+      <p class="font-display font-800 text-2xl {{ kpi[3] }} leading-none mb-1">{{ kpi[1] }}</p>
+      <p class="text-[10px] text-ink-faint">{{ kpi[2] }} {{ kpi[4] }}</p>
+    </div>
+    {% endfor %}
+  </div>
+
+  {# ─── MAIN GRID ─── #}
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+    {# ─── LEFT COLUMN ─── #}
+    <div class="space-y-5">
+
+      {# Add reward tier #}
+      <div class="card-strong rounded-3xl p-6">
+        <p class="text-xs font-display font-semibold uppercase tracking-widest text-ink-faint mb-4">Add Reward Tier</p>
+        <form method="POST" action="{{ url_for('admin_add_reward') }}" class="space-y-3">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+          <input name="referrals_required" type="number" min="1" required
+                 placeholder="Referrals needed" class="input-field text-sm"/>
+          <input name="reward_name" required placeholder="Reward name" class="input-field text-sm"/>
+          <input name="reward_description" placeholder="Short description (optional)" class="input-field text-sm"/>
+          <div class="flex gap-2">
+            <input name="badge_emoji" placeholder="🎁" maxlength="4"
+                   class="input-field text-center w-14 !px-2 text-sm"/>
+            <button type="submit" class="btn-primary flex-1 !py-2.5 !text-sm">Add Tier →</button>
+          </div>
+        </form>
+      </div>
+
+      {# Active tiers #}
+      {% if tiers %}
+      <div class="card rounded-3xl p-6">
+        <p class="text-xs font-display font-semibold uppercase tracking-widest text-ink-faint mb-4">Active Reward Tiers</p>
+        <div class="space-y-2.5">
+          {% for tier in tiers %}
+          <div class="flex items-center gap-3 p-3 rounded-xl card-soft border hover:border-brand-300/60 transition-all">
+            <span class="text-lg">{{ tier.badge_emoji }}</span>
+            <div class="flex-1 min-w-0">
+              <p class="font-display font-600 text-xs text-ink truncate">{{ tier.reward_name }}</p>
+              <p class="text-[10px] text-ink-faint mt-0.5">{{ tier.referrals_required }} referrals required</p>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      {# Leaderboard #}
+      {% if leaderboard %}
+      <div class="card rounded-3xl p-6">
+        <p class="text-xs font-display font-semibold uppercase tracking-widest text-ink-faint mb-4">Waitlist Leaderboard</p>
+        <div class="space-y-2">
+          {% for u in leaderboard %}
+          <div class="flex items-center gap-2.5 p-2.5 rounded-xl hover:bg-cream-deep/60 transition-all">
+            <span class="text-sm w-5 text-center">
+              {% if loop.index == 1 %}🥇{% elif loop.index == 2 %}🥈{% elif loop.index == 3 %}🥉{% else %}<span class="text-ink-faint font-mono text-xs">{{ loop.index }}</span>{% endif %}
+            </span>
+            <p class="flex-1 text-xs text-ink-soft font-mono truncate">{{ u.email }}</p>
+            <span class="pill-green text-xs px-2 py-0.5 rounded-full font-display font-semibold">{{ u.referrals_count }}</span>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+    </div>
+
+    {# ─── RIGHT: USERS TABLE ─── #}
+    <div class="lg:col-span-2">
+      <div class="card-strong rounded-3xl overflow-hidden">
+
+        {# Table header #}
+        <div class="px-6 py-5 border-b border-ink/[0.06]">
+          <div class="flex items-start justify-between gap-4 mb-4">
+            <div>
+              <p class="font-display font-700 text-sm text-ink">Waitlist Members</p>
+              <p class="text-xs text-ink-faint mt-0.5">{{ total_users }} total · {{ verified_users }} verified</p>
+            </div>
+            <a href="{{ url_for('admin_export_csv') }}"
+               class="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-brand-50 border border-brand-200
+                      text-brand-700 text-xs font-display font-semibold hover:bg-brand-100 transition-all
+                      whitespace-nowrap">
+              ⬇ CSV Export
+            </a>
+          </div>
+
+          {# Server-side search #}
+          <form method="GET" action="{{ url_for('admin') }}" class="flex gap-2">
+            <input type="text" name="q" value="{{ q }}"
+                   placeholder="Search email or referral code…"
+                   class="input-field !py-2.5 !text-xs flex-1"/>
+            <button type="submit"
+                    class="px-4 py-2 rounded-xl bg-brand-600 border border-brand-600
+                           text-white text-xs font-display font-semibold hover:bg-brand-700 transition-all">
+              Search
+            </button>
+            {% if q %}
+            <a href="{{ url_for('admin') }}"
+               class="px-3 py-2 rounded-xl bg-white border border-ink/[0.10]
+                      text-ink-faint text-xs font-display hover:text-ink-soft transition-all">
+              ✕
+            </a>
+            {% endif %}
+          </form>
+        </div>
+
+        {# Table #}
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs">
+            <thead>
+              <tr class="border-b border-ink/[0.06] text-[10px] text-ink-faint uppercase tracking-widest font-display bg-cream-deep/40">
+                <th class="px-4 py-3 text-left w-8">#</th>
+                <th class="px-4 py-3 text-left">Email</th>
+                <th class="px-4 py-3 text-center">Refs</th>
+                <th class="px-4 py-3 text-left">Referred By</th>
+                <th class="px-4 py-3 text-left">Joined</th>
+                <th class="px-4 py-3 text-center">Status</th>
+                <th class="px-4 py-3 text-center">Delete</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-ink/[0.05]">
+              {% for u in users %}
+              <tr class="trow transition-colors">
+                <td class="px-4 py-3.5 text-ink-faint font-mono">{{ u.waitlist_position or '—' }}</td>
+                <td class="px-4 py-3.5 text-ink font-mono max-w-[160px]">
+                  <span class="truncate block">{{ u.email }}</span>
+                </td>
+                <td class="px-4 py-3.5 text-center">
+                  {% if u.referrals_count > 0 %}
+                  <span class="pill-green text-xs px-2.5 py-0.5 rounded-full font-display font-700">{{ u.referrals_count }}</span>
+                  {% else %}
+                  <span class="text-ink-faint">—</span>
+                  {% endif %}
+                </td>
+                <td class="px-4 py-3.5 font-mono text-ink-faint text-[11px]">{{ u.referred_by or '—' }}</td>
+                <td class="px-4 py-3.5 text-ink-soft">{{ u.joined_at.strftime('%b %d') }}</td>
+                <td class="px-4 py-3.5 text-center">
+                  <span class="rounded-full px-2 py-0.5 text-[10px] font-display font-semibold
+                    {{ 'bg-brand-50 text-brand-700 border border-brand-200' if u.verified else 'bg-cream-deep text-ink-faint border border-ink/[0.08]' }}">
+                    {{ 'Verified' if u.verified else 'Pending' }}
+                  </span>
+                </td>
+                <td class="px-4 py-3.5 text-center">
+                  <form method="POST"
+                        action="{{ url_for('admin_delete_user', user_id=u.id) }}"
+                        onsubmit="return confirm('Delete {{ u.email }}? This cannot be undone.')">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <button type="submit"
+                            class="text-red-500 hover:text-red-600 transition-colors text-[11px] font-display font-semibold">
+                      Delete
+                    </button>
+                  </form>
+                </td>
+              </tr>
+              {% else %}
+              <tr>
+                <td colspan="7" class="py-16 text-center">
+                  <p class="text-3xl mb-3">📭</p>
+                  <p class="text-ink-soft font-display text-sm">
+                    {% if q %}No results for "{{ q }}"{% else %}No signups yet{% endif %}
+                  </p>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        {# ─── Pagination ─── #}
+        {% if pagination.pages > 1 %}
+        <div class="px-6 py-4 border-t border-ink/[0.06] flex items-center justify-between gap-4">
+          <p class="text-xs text-ink-faint font-display">
+            Page {{ pagination.page }} of {{ pagination.pages }}
+            · {{ pagination.total }} members
+          </p>
+          <div class="flex items-center gap-1.5">
+            {% if pagination.has_prev %}
+            <a href="{{ url_for('admin', page=pagination.prev_num, q=q) }}"
+               class="px-3 py-1.5 rounded-lg bg-white border border-ink/[0.10]
+                      text-ink-soft text-xs font-display hover:text-ink hover:border-brand-300/60 transition-all">
+              ← Prev
+            </a>
+            {% endif %}
+
+            {% for p in pagination.iter_pages(left_edge=1, right_edge=1, left_current=2, right_current=2) %}
+              {% if p %}
+                <a href="{{ url_for('admin', page=p, q=q) }}"
+                   class="px-3 py-1.5 rounded-lg text-xs font-display transition-all
+                   {% if p == pagination.page %}bg-brand-600 border border-brand-600 text-white
+                   {% else %}bg-white border border-ink/[0.10] text-ink-faint hover:text-ink hover:border-brand-300/60{% endif %}">
+                  {{ p }}
+                </a>
+              {% else %}
+                <span class="text-ink-faint px-1">…</span>
+              {% endif %}
+            {% endfor %}
+
+            {% if pagination.has_next %}
+            <a href="{{ url_for('admin', page=pagination.next_num, q=q) }}"
+               class="px-3 py-1.5 rounded-lg bg-white border border-ink/[0.10]
+                      text-ink-soft text-xs font-display hover:text-ink hover:border-brand-300/60 transition-all">
+              Next →
+            </a>
+            {% endif %}
+          </div>
+        </div>
+        {% else %}
+        <div class="px-6 py-3 border-t border-ink/[0.06]">
+          <p class="text-xs text-ink-faint font-display">{{ pagination.total }} members total</p>
+        </div>
+        {% endif %}
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="py-6 text-center border-t border-ink/[0.06] mt-8">
+  <p class="text-xs text-ink-faint font-body">Ziva Pro Admin · Internal Use Only</p>
+</footer>
+
+{% endblock %}
